@@ -4,15 +4,7 @@ import plotly.express as px
 import os
 import sqlite3
 
-# BASE_DIR = r"C:\Users\sumit\PycharmProjects\PythonProject1"
-# DB_PATH = os.path.join(BASE_DIR, "scraper", "data", "joblens.db")
-# import os
 
-# BASE_DIR = os.path.dirname(
-#     os.path.dirname(
-#         os.path.abspath(__file__)
-#     )
-# )
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH = os.path.join(BASE_DIR, "scraper", "data", "joblens.db")
 
