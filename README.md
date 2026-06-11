@@ -1,47 +1,48 @@
-# JobLens India 🔍
-> Real-time Data & AI Job Market Analytics Dashboard for India
+# 🔍 JobLens India — Data & AI Job Market Analytics
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue)
-![Streamlit](https://img.shields.io/badge/Streamlit-1.58-red)
-![SQLite](https://img.shields.io/badge/Database-SQLite-green)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://khushirajput123-joblens-india-appstreamlit-app-ulhuwr.streamlit.app)
+![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)
+![SQLite](https://img.shields.io/badge/Database-SQLite-green?logo=sqlite)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.58-red?logo=streamlit)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-## 🌐 Live Demo
-**[View Live Dashboard →](https://khushirajput123-joblens-india-appstreamlit-app-ulhuwr.streamlit.app)**
+> A real-time job market analytics dashboard that tracks hiring trends for Data & AI roles across India — built with an end-to-end ETL pipeline from API to interactive dashboard.
+
+---
+
+## 🚀 Live Demo
+
+🔗 **[View Live Dashboard →](https://khushirajput123-joblens-india-appstreamlit-app-ulhuwr.streamlit.app)**
 
 ---
 
 ## 📌 What It Does
 
-JobLens India tracks real-time hiring trends for Data & AI roles across India. It fetches live job listings from the JSearch API, cleans and stores them in a SQLite database, and displays interactive insights on a Streamlit dashboard.
+JobLens India fetches live job listings from the JSearch API, cleans and stores them in a SQLite database, and displays interactive hiring insights on a Streamlit dashboard.
 
-- Browse **160+ live job listings** across India
-- Filter by **role category** and **city**
-- See **top hiring companies**, city trends, and role breakdown
-- Data refreshed by re-running the fetch pipeline
-
----
-
-## 🖥️ Dashboard Preview
-
-| Metric Cards | Charts |
+| Feature | Description |
 |---|---|
-| Total Jobs, Companies, Cities, Roles | Jobs by Role, Top 10 Cities, Top Companies |
+| 📊 160+ Live Job Listings | Real job data fetched from JSearch API across India |
+| 🏙️ City-wise Breakdown | Top hiring cities — Bengaluru, Hyderabad, Pune, Mumbai and more |
+| 🏢 Company Rankings | Top companies actively hiring for Data & AI roles |
+| 🎯 Role Filter | Filter by Data Analyst, ML Engineer, Data Scientist, and more |
+| 📈 Interactive Charts | Built with Plotly — bar charts, pie charts, company rankings |
+| 🗄️ SQL-powered Backend | Full ETL pipeline with SQLite — raw → clean → dashboard |
 
 ---
 
-## 🏗️ Project Architecture
+## 🏗️ Architecture
 
 ```
 JSearch API
-    ↓
-scraper/fetchjobs.py     →   scraper/data/joblens.db  (jobs_raw table)
-    ↓
-analysis/clean.data.py   →   scraper/data/joblens.db  (jobs_clean table)
-    ↓
-app/streamlit_app.py     →   reads jobs_clean → interactive dashboard
-    ↓
-Streamlit Cloud          →   live on internet via GitHub
+     ↓
+scraper/fetchjobs.py      →    SQLite (jobs_raw table)
+     ↓
+analysis/clean_data.py    →    SQLite (jobs_clean table)
+     ↓
+app/streamlit_app.py      →    Interactive Dashboard
+     ↓
+Streamlit Cloud           →    Live on Internet
 ```
 
 ---
@@ -51,13 +52,13 @@ Streamlit Cloud          →   live on internet via GitHub
 ```
 joblens-india/
 ├── scraper/
-│   ├── fetchjobs.py          # Fetches jobs from JSearch API
+│   ├── fetchjobs.py           # Fetches jobs from JSearch API
 │   └── data/
-│       └── joblens.db        # SQLite database
+│       └── joblens.db         # SQLite database
 ├── analysis/
-│   └── clean.data.py         # Cleans and transforms raw data
+│   └── clean_data.py          # Cleans and transforms raw data
 ├── app/
-│   └── streamlit_app.py      # Streamlit dashboard
+│   └── streamlit_app.py       # Streamlit dashboard
 ├── requirements.txt
 └── README.md
 ```
@@ -67,19 +68,18 @@ joblens-india/
 ## ⚙️ Tech Stack
 
 | Tool | Purpose |
-|------|---------|
-| Python | Core language |
-| Pandas | Data cleaning and transformation |
-| SQLite | Local database storage |
-| Streamlit | Interactive web dashboard |
-| Plotly | Data visualizations |
-| Requests | REST API calls |
-| Git + GitHub | Version control and deployment |
-| Streamlit Cloud | Free cloud hosting |
+|---|---|
+| **Python** | Core language |
+| **Pandas** | Data cleaning and transformation |
+| **SQLite** | Local database — raw and clean tables |
+| **Requests** | REST API calls to JSearch |
+| **Streamlit** | Interactive web dashboard |
+| **Plotly** | Data visualizations |
+| **Streamlit Cloud** | Free cloud deployment |
 
 ---
 
-## 🚀 How to Run Locally
+## 🚀 Run Locally
 
 ### 1. Clone the repository
 ```bash
@@ -92,94 +92,76 @@ cd joblens-india
 pip install -r requirements.txt
 ```
 
-### 3. Fetch job data
-```bash
-python scraper/fetchjobs.py
+### 3. Add your API key
+Create a `.env` file:
 ```
-
-### 4. Clean the data
-```bash
-python analysis/clean.data.py
+RAPIDAPI_KEY=your_rapidapi_key_here
 ```
+Get your free key at [rapidapi.com](https://rapidapi.com) → search JSearch.
 
-### 5. Run the dashboard
+### 4. Run the pipeline
 ```bash
-streamlit run app/streamlit_app.py
+python scraper/fetchjobs.py     # Step 1: Fetch data
+python analysis/clean_data.py   # Step 2: Clean data
+streamlit run app/streamlit_app.py  # Step 3: Launch dashboard
 ```
 
 Open **http://localhost:8501** in your browser.
 
 ---
 
-## 📊 Data Pipeline
+## 📊 Data Pipeline — How It Works
 
-### Step 1 — Fetch (fetchjobs.py)
+### Step 1 — Fetch (`fetchjobs.py`)
 - Calls JSearch RapidAPI for 6 role categories
-- Fetches 5 pages per role (50 jobs per role)
-- Saves raw JSON data to `jobs_raw` table in SQLite
-- Handles rate limiting with 1.5s delay between calls
+- Fetches 5 pages per role across major Indian cities
+- Handles rate limiting with 1.5s delay between API calls
+- Saves raw data to `jobs_raw` table in SQLite
 
-### Step 2 — Clean (clean.data.py)
-- Removes duplicate job listings by `job_id`
+### Step 2 — Clean (`clean_data.py`)
+- Removes duplicate listings by `job_id`
 - Filters India-only jobs (`job_country == "IN"`)
 - Converts date strings to datetime format
-- Categorizes roles: Data Analyst, Data Scientist, ML Engineer, Data Engineer, Business Analyst, AI Engineer
-- Saves cleaned data to `jobs_clean` table
+- Categorizes roles into standard buckets
+- Saves clean data to `jobs_clean` table
 
-### Step 3 — Visualize (streamlit_app.py)
-- Reads from `jobs_clean` table
+### Step 3 — Visualize (`streamlit_app.py`)
+- Reads from `jobs_clean` table via Pandas + SQL
 - Sidebar filters for role and city
-- Metric cards, bar charts, company rankings, job listings table
+- Metric cards, bar charts, pie charts, company leaderboard
 
 ---
 
-## 📈 Role Categories Tracked
+## 📈 Roles Tracked
 
-- Data Analyst
-- Data Scientist
-- Data Engineer
-- ML Engineer
-- Business Analyst
-- AI Engineer
-
----
-
-## 🏙️ Top Cities Covered
-
-Bengaluru · Hyderabad · Pune · Gurugram · Mumbai · Chennai · New Delhi · Kolkata
-
----
-
-## 🔮 Future Improvements
-
-- [ ] Salary insights chart using `job_min_salary` data
-- [ ] GitHub Actions for daily auto-fetch
-- [ ] Job description keyword/skills extractor
-- [ ] Email alerts for new job listings
-- [ ] Trend over time — weekly hiring patterns
-- [ ] Expand to US, UK, Canada markets
-- [ ] Migrate from SQLite to PostgreSQL
+`Data Analyst` · `Data Scientist` · `ML Engineer` · `Data Engineer` · `Business Analyst` · `AI Engineer`
 
 ---
 
 ## 💡 Key Learnings
 
-- Building end-to-end ETL pipelines from scratch
+- End-to-end ETL pipeline from REST API to production dashboard
 - REST API integration with pagination and rate limiting
-- Data cleaning and transformation with Pandas
-- SQLite database management
-- Interactive dashboard development with Streamlit
-- Cloud deployment with GitHub CI/CD
+- Data cleaning and deduplication with Pandas
+- SQLite schema design — raw vs clean table separation
+- Interactive dashboard development with Streamlit and Plotly
+- Cloud deployment via GitHub + Streamlit Cloud
 
 ---
 
-## 👤 Author
+## 👩‍💻 Author
 
-**Khushirajput123**
-- GitHub: [@Khushirajput123](https://github.com/Khushirajput123)
+**Khushi Rajput**
+
+[![GitHub](https://img.shields.io/badge/GitHub-Khushirajput123-black?logo=github)](https://github.com/Khushirajput123)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin)](https://linkedin.com/in/khushirajput)
+[![LeetCode](https://img.shields.io/badge/LeetCode-1600%2B_Rating-orange?logo=leetcode)](https://leetcode.com/khushirajput)
 
 ---
 
 ## 📄 License
 
 This project is open source under the [MIT License](LICENSE).
+
+---
+
