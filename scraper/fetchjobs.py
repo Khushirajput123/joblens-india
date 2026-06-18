@@ -11,8 +11,13 @@ BASE_DIR = r"C:\Users\sumit\PycharmProjects\PythonProject1"
 os.makedirs(os.path.join(BASE_DIR, "data"), exist_ok=True)
 conn = sqlite3.connect(os.path.join(BASE_DIR, "scraper","data", "joblens.db"))
 
+from dotenv import load_dotenv
+import os
 
-API_KEY = "693b588d2cmshe717d3ecbb4d05fp19162fjsnace3b1bef9ce"  # ← paste your key here
+load_dotenv()
+
+
+API_KEY = os.getenv("GEMINI_API_KEY") # ← paste your key here
 
 roles = [
     "Data Analyst India",
