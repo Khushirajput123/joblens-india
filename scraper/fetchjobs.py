@@ -55,16 +55,7 @@ for role in roles:
         except Exception as e:
             print(f"❌ Failed: {role} page {page} → {e}")
 
-# print(f"\n📊 Total raw jobs collected: {len(all_jobs)}")
-#
-# # Save raw to DB
-# os.makedirs("data", exist_ok=True)
-# df = pd.DataFrame(all_jobs)
-# conn = sqlite3.connect("data/joblens.db")
-# df.to_sql("jobs_raw", conn, if_exists="replace", index=False)
-# conn.close()
-# print("✅ Saved to joblens.db → table: jobs_raw")
-# print(f"Columns available: {df.columns.tolist()}")
+
 
 
 print(f"\n📊 Total raw jobs collected: {len(all_jobs)}")
@@ -88,7 +79,7 @@ print(f"Columns: {df.columns.tolist()}")
 
 # import requests
 #
-# API_KEY = "693b588d2cmshe717d3ecbb4d05fp19162fjsnace3b1bef9ce"  # ← make sure this is your real key
+# API_KEY = "  # ← make sure this is your real key
 #
 # url = "https://jsearch.p.rapidapi.com/search"
 # headers = {
