@@ -129,13 +129,6 @@ Open **http://localhost:8501** in your browser.
 - Reads from `jobs_clean` table via Pandas + SQL
 - Sidebar filters for role and city
 - Metric cards, bar charts, pie charts, company leaderboard
-
----
-
-## 📈 Roles Tracked
-
-`Data Analyst` · `Data Scientist` · `ML Engineer` · `Data Engineer` · `Business Analyst` · `AI Engineer`
-
 ---
 
 ## 💡 Key Learnings
